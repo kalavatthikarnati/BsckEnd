@@ -1,8 +1,4 @@
-//const express = require('express')
-//import LoginModel from '../Models/LoginModel.js';
-//const validator = require("validator");
-//const bcrypt = require('bcryptjs');
-//const jwt = require("jsonwebtoken");
+
 import express from "express";
 import LoginModel from "../Models/LoginModel.js";
 import registerModel from "../Models/RegisterModel.js"; // use the same model you used for signup
@@ -16,33 +12,34 @@ const LoginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
         const userExist = await registerModel.findOne({ email })
-        console.log(userExist);
+        console.log("userExist");
         if (!userExist) {
             res.json({ "sucess": false, "message": "user not registered ,please register first to login" })
         }
         else {
-            //password matching
-               
-          const isMatch = await bcrypt.compare(password, userExist.password);
-        if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Invalid credentials" });
+            res.json({"success":true,"message":"user loggedin successfully"})
         }
+           
 
+          const isMatch = await bcrypt.compare(password, userExist.password);
+
+             if (isMatch) {
                 const loginuser = new LoginModel({
-
                     email: email,
                     password: password
                 })
                 const user = await loginuser.save();
-                 const token = jwt.sign({ id: user._id }, "Kalavathi");
-
+               
+                const id=user._id;
+                 const token = jwt.sign({ id }, process.env.SECRETCODE);
+                 console.log("Login token",token);
 
                 res.json({ "sucess": true, "message": "user loggedin successfully", token });
             }
            
-        }
+        
 
-    
+        }
     catch (error) {
         console.log(error);
         res.json({ "success": false, "message": "some error occured" })

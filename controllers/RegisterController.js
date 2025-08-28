@@ -50,8 +50,9 @@ const registerUser = async (req, res) => {
     const user = await newUser.save();
 
     // 6. Generate JWT token
-    //const id =user._id;
-    const token = jwt.sign({ id: user._id }, "Kalavathi", { expiresIn: "1d" });
+    const id =user._id;
+    const token = jwt.sign({ id }, process.env.SECRETCODE);
+    console.log(token);
 
     // 7. Send response
     res.status(201).json({
