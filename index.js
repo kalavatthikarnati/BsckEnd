@@ -49,15 +49,6 @@ app.delete("/customers/:id", async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
 const authmiddleware =async(req,res,next)=>{
     console.log('I am a middleware');
     const {token}=req.headers;
