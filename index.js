@@ -87,5 +87,5 @@ app.get('/addTocart',authmiddleware,(req,res)=>{
 dbConnection();
 
 app.listen('port', () => {
-    console.log('server started')
+    console.log(`Server running on port ${PORT}`)
 })
