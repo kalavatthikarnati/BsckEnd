@@ -11,7 +11,7 @@ import cors from "cors";
 const port = process.env.PORT;
 
 app.use(cors({
-  origin: 'http://localhost:5173'}));
+  origin: '*'}));
 
  //middle ware
 app.use(express.json())
