@@ -8,7 +8,7 @@ import dbConnection from "./db.js";
 import 'dotenv/config'
 
 import cors from "cors";
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors({
   origin: '*'}));
